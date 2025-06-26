@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import CafeInfo from "../CafeInfo/CafeInfo";
 import { Votes } from "../../types/votes";
+import VoteOptions from "../VoteOptions/VoteOptions";
 
 function App() {
   const [votesStats, setVotesStats] = useState<Votes>({
@@ -29,10 +30,13 @@ function App() {
   return (
     <div className={css.app}>
       <CafeInfo />
-      <button onClick={() => handleVotes("good")}>Update Good</button>
-      <button onClick={() => handleVotes("neutral")}>Update Neutral</button>
-      <button onClick={() => handleVotes("bad")}>Update bad</button>
-      <button onClick={resetVotes}>Reset</button>
+      <VoteOptions
+        onVote={handleVotes}
+        onReset={resetVotes}
+        canReset={
+          votesStats.good > 0 || votesStats.neutral > 0 || votesStats.bad > 0
+        }
+      />
     </div>
   );
 }
