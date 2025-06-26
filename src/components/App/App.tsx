@@ -4,6 +4,7 @@ import { useState } from "react";
 import CafeInfo from "../CafeInfo/CafeInfo";
 import { Votes } from "../../types/votes";
 import VoteOptions from "../VoteOptions/VoteOptions";
+import VoteStats from "../VoteStats/VoteStats";
 
 function App() {
   const [votesStats, setVotesStats] = useState<Votes>({
@@ -26,7 +27,9 @@ function App() {
       bad: 0,
     });
   };
-
+  const totalVotes = votesStats.good + votesStats.neutral + votesStats.bad;
+  const positiveRate =
+    totalVotes === 0 ? 0 : Math.round((votesStats.good / totalVotes) * 100);
   return (
     <div className={css.app}>
       <CafeInfo />
@@ -36,6 +39,11 @@ function App() {
         canReset={
           votesStats.good > 0 || votesStats.neutral > 0 || votesStats.bad > 0
         }
+      />
+      <VoteStats
+        votes={votesStats}
+        totalVotes={totalVotes}
+        positiveRate={positiveRate}
       />
     </div>
   );
