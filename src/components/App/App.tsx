@@ -5,7 +5,7 @@ import CafeInfo from "../CafeInfo/CafeInfo";
 import { Votes } from "../../types/votes";
 import VoteOptions from "../VoteOptions/VoteOptions";
 import VoteStats from "../VoteStats/VoteStats";
-
+import Notification from "../Notification/Notification";
 function App() {
   const [votesStats, setVotesStats] = useState<Votes>({
     good: 0,
@@ -27,6 +27,7 @@ function App() {
       bad: 0,
     });
   };
+
   const totalVotes = votesStats.good + votesStats.neutral + votesStats.bad;
   const positiveRate =
     totalVotes === 0 ? 0 : Math.round((votesStats.good / totalVotes) * 100);
@@ -40,11 +41,15 @@ function App() {
           votesStats.good > 0 || votesStats.neutral > 0 || votesStats.bad > 0
         }
       />
-      <VoteStats
-        votes={votesStats}
-        totalVotes={totalVotes}
-        positiveRate={positiveRate}
-      />
+      {totalVotes > 0 ? (
+        <VoteStats
+          votes={votesStats}
+          totalVotes={totalVotes}
+          positiveRate={positiveRate}
+        />
+      ) : (
+        <Notification />
+      )}
     </div>
   );
 }
