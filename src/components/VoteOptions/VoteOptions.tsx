@@ -1,7 +1,8 @@
 import css from "./VoteOptions.module.css";
+import type { VoteType } from "../../types/vote"; // ✅ ІМПОРТ типу, як вимагається
 
 interface VoteOptionsProps {
-  onVote: (type: "good" | "neutral" | "bad") => void;
+  onVote: (type: VoteType) => void; // ✅ ВИКОРИСТАННЯ типу VoteType
   onReset: () => void;
   canReset: boolean;
 }
